@@ -15,7 +15,7 @@ def student_list(request):
     if search_query:
         students = students.filter(student_name__icontains=search_query)
 
-    return render(request, 'student_list.html', {'students': students})
+    return render(request, 'index.html', {'students': students})
 
 def student_create(request):
     if request.method == 'POST':
