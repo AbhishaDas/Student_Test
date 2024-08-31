@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+from psycopg2 import DATETIME
+import dj_database_url
+
+import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -74,15 +79,21 @@ WSGI_APPLICATION = 'students.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'student_test',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#         'USER': 'postgres',
+#         'PASSWORD': 'abhi9004',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'student_test',
-        'HOST': 'localhost',
-        'PORT': '5432',
-        'USER': 'postgres',
-        'PASSWORD': 'abhi9004',
-    }
+    'default': dj_database_url.config(
+        default='postgresql://testdb_a4dz_user:GKS29Z474pz69bmQtFQHWm2JNkFJxQ0F@dpg-cr9d1d56l47c73cl0akg-a.oregon-postgres.render.com/testdb_a4dz'
+    )
 }
 
 
