@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Student, Subject
 from .forms import StudentForm, SubjectForm
 
-def index(request):
+def student_list(request):
     students = Student.objects.all()
 
     filter_value = request.GET.get('filter', 'all')
@@ -15,14 +15,14 @@ def index(request):
     if search_query:
         students = students.filter(student_name__icontains=search_query)
 
-    return render(request, 'index.html', {'students': students})
+    return render(request, 'student_list.html', {'students': students})
 
 def student_create(request):
     if request.method == 'POST':
         form = StudentForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('student_list')
     else:
         form = StudentForm()
     return render(request, 'student_form.html', {'form': form})
@@ -48,10 +48,10 @@ def manage_student(request, pk):
             form = StudentForm(request.POST, instance=student)
             if form.is_valid():
                 form.save()
-                return redirect('index')
+                return redirect('student_list')
         elif 'delete' in request.POST:
             student.delete()
-            return redirect('index')
+            return redirect('student_list')
         else:
             form = StudentForm(instance=student)
     else:
